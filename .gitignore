@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+# binários de teste compilados
+tests/alvo/alvo
+tests/alvo/alvo-e2e
