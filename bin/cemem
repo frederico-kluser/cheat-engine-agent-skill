@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# cemem — motor de memória nativo (sem Cheat Engine). Ver: cemem --help
+exec python3 "$(dirname "$(readlink -f "$0")")/../scripts/cemem.py" "$@"
