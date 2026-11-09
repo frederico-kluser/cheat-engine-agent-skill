@@ -1,5 +1,10 @@
 # API CELua — escaneamento de memória (MemScan / FoundList)
 
+> **Linux:** o mesmo arquivo está em `/usr/lib/cheatengine/celua.txt` (CE 7.7.1). Os números de
+> linha abaixo são do `celua.txt` do CE 7.7 **Windows**; no Linux o texto está ~10–40 linhas
+> abaixo — procure pelo nome da função (`grep -n createMemScan /usr/lib/cheatengine/celua.txt`).
+> Diferenças reais do 7.7.1 Linux (testadas): `references/linux-proton.md` §6.
+
 > Fonte: `C:\Program Files\Cheat Engine\celua.txt`, linhas 2506–2688 (CE 7.7).
 > Para o texto integral, abra o celua.txt na linha indicada.
 > As linhas 841–858 (documentação de `AOBScan`) são transcritas aqui porque `MemScan.firstScan` remete explicitamente a elas ("protectionflags : See aobscan about protectionflags", celua.txt:2602).

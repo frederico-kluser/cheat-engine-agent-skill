@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# ce — Cheat Engine (Linux) para agentes. Ver: ce --help
+exec python3 "$(dirname "$(readlink -f "$0")")/../scripts/ce.py" "$@"

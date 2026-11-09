@@ -1,5 +1,10 @@
 # API CELua — Address List, MemoryRecord e estruturas
 
+> **Linux:** o mesmo arquivo está em `/usr/lib/cheatengine/celua.txt` (CE 7.7.1). Os números de
+> linha abaixo são do `celua.txt` do CE 7.7 **Windows**; no Linux o texto está ~10–40 linhas
+> abaixo — procure pelo nome da função (`grep -n createMemScan /usr/lib/cheatengine/celua.txt`).
+> Diferenças reais do 7.7.1 Linux (testadas): `references/linux-proton.md` §6.
+
 > Fonte: `C:\Program Files\Cheat Engine\celua.txt`, linhas 2297–2505 e 2854–2970 (CE 7.7).
 > Para o texto integral, abra o celua.txt na linha indicada.
 > As pegadinhas remetem a identificadores globais que estão **fora** desses intervalos; nesses casos a linha exata do celua.txt é citada (ex.: `getAddressList()` em celua.txt:774, `saveTable`/`loadTable` em celua.txt:32–35, `SymbolList` em celua.txt:3523–3563).

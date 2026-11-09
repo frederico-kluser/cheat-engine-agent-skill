@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Verificador de sintaxe Lua usando a PRÓPRIA DLL do Cheat Engine.
+"""Verificador de sintaxe Lua usando a PRÓPRIA biblioteca Lua do Cheat Engine.
 
 Por que não usar um linter externo: o Cheat Engine 7.7 embarca Lua 5.3 compilado
-em ``lua53-64.dll`` (e ``lua53-32.dll``). Compilar o arquivo com exatamente essa
-DLL é a única forma de garantir que o bytecode é válido para o interpretador que
-vai realmente executá-lo — sem depender de instalar Lua na máquina.
+em ``liblua53.so`` (Linux, /usr/lib/cheatengine) ou ``lua53-64.dll`` (Windows).
+Compilar o arquivo com exatamente essa biblioteca é a única forma de garantir
+que o bytecode é válido para o interpretador que vai executá-lo (o ``lua`` do
+sistema é 5.4/5.5 e aceita/recusa coisas diferentes).
 
 Uso:
     python scripts/lint_lua.py autorun/ce_agent_bridge.lua
-    python scripts/lint_lua.py autorun/*.lua --dll "C:/Program Files/Cheat Engine/lua53-64.dll"
+    python scripts/lint_lua.py autorun/*.lua --dll /usr/lib/cheatengine/liblua53.so
 
 Saída: uma linha por arquivo, com ``OK`` ou ``ERRO: <mensagem>``.
 Código de saída: 0 se todos passaram, 1 se algum falhou.
@@ -23,10 +24,12 @@ import sys
 from pathlib import Path
 
 CE_DIRS = (
+    "/usr/lib/cheatengine",
+    str(Path.home() / ".local/share/cheatengine"),
     r"C:\Program Files\Cheat Engine",
     r"C:\Program Files (x86)\Cheat Engine",
 )
-DLL_NAMES = ("lua53-64.dll", "lua53-32.dll")
+DLL_NAMES = ("liblua53.so", "lua53-64.dll", "lua53-32.dll")
 
 LUA_OK = 0
 LUA_ERRSYNTAX = 3
@@ -54,7 +57,7 @@ def find_dll(explicit: str | None) -> Path:
             if p.is_file():
                 return p
     raise SystemExit(
-        "não encontrei lua53-*.dll. Instale o Cheat Engine ou passe --dll <caminho>."
+        "não encontrei liblua53.so / lua53-*.dll. Instale o Cheat Engine ou passe --dll <caminho>."
     )
 
 
@@ -88,7 +91,7 @@ def check(dll: ctypes.CDLL, path: Path) -> str | None:
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="Compila arquivos .lua com a DLL do Cheat Engine.")
     ap.add_argument("files", nargs="+", help="arquivos .lua (globs são expandidos pelo shell)")
-    ap.add_argument("--dll", default=None, help="caminho explícito para lua53-64.dll / lua53-32.dll")
+    ap.add_argument("--dll", default=None, help="caminho explícito para liblua53.so / lua53-64.dll")
     args = ap.parse_args(argv)
 
     dll_path = find_dll(args.dll)
